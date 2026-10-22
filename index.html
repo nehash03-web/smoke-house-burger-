@@ -1,0 +1,88 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Smoke House Burgers</title><style>
+:root{--gold:#ffb300;--amber:#ff8a00;--bg:#0b0b0c;--card:#171719;--muted:#aaa;--green:#22c55e;--red:#ef4444}*{box-sizing:border-box}body{margin:0;background:linear-gradient(#090909,#121212);color:#fff;font-family:Arial,sans-serif}.wrap{max-width:1150px;margin:auto;padding:18px}.brand{text-align:center;padding:18px 0}.logo{width:96px;height:96px;margin:auto;border-radius:50%;background:radial-gradient(circle at 40% 35%,#ffcf57,var(--gold) 38%,#8b3100 75%);display:grid;place-items:center;font-size:46px;border:4px solid #2b2b2b;box-shadow:0 0 30px #ff9d0025}.brand h1{margin:8px 0 2px;color:var(--gold);letter-spacing:1px}.tag{color:#bbb}.deal{background:linear-gradient(135deg,#ffb300,#ff7a00);color:#111;border-radius:16px;padding:18px;margin:14px 0;display:flex;justify-content:space-between;gap:15px;align-items:center}.deal button{background:#111;color:#fff}.cats{position:sticky;top:0;z-index:9;background:#0b0b0ce8;backdrop-filter:blur(8px);display:flex;gap:8px;overflow:auto;padding:10px 0}.cats button.active{background:var(--gold);color:#111}.cats button{white-space:nowrap;background:#28282b;color:#fff}.search,input,textarea,select{width:100%;padding:12px;border:1px solid #333;border-radius:10px;background:#202023;color:#fff;margin:7px 0}.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:14px;margin:14px 0 28px}.card{background:var(--card);border:1px solid #29292c;border-radius:16px;overflow:hidden;box-shadow:0 8px 28px #0005}.foodimg{height:150px;display:grid;place-items:center;font-size:78px;background:radial-gradient(circle at 50% 30%,#433116,#21170b 65%,#111)}.body{padding:14px}.card h3{margin:0 0 6px;color:#ffd064}.desc{color:#bbb;min-height:38px;font-size:14px}.meta{font-size:12px;color:#a9a9a9;margin:8px 0}.row{display:flex;align-items:center;justify-content:space-between;gap:8px}.price{font-size:20px;color:var(--gold);font-weight:800}.qtybadge{display:none;background:var(--green);color:#071507;border-radius:20px;padding:5px 9px;font-weight:bold}.card.selected .qtybadge{display:inline}.custom{margin-top:10px;padding-top:10px;border-top:1px solid #333;font-size:13px}.custom label{display:block;margin:6px 0}.btn,button{border:0;border-radius:10px;padding:11px 13px;font-weight:800;cursor:pointer;background:var(--gold);color:#111}.small{padding:6px 10px}.panel{background:#171719;border:1px solid #29292c;border-radius:16px;padding:18px;margin:16px 0}.empty{text-align:center;color:#aaa;padding:24px;border:1px dashed #444;border-radius:12px}.cartline{display:flex;justify-content:space-between;gap:10px;padding:10px 0;border-bottom:1px solid #333}.saving{color:var(--green);font-weight:800}.grand{font-size:27px;font-weight:900;color:#fff;background:#26220f;border:2px solid var(--gold);padding:13px;border-radius:12px;margin:12px 0}.continue{background:#333;color:#fff}.floatcart{display:none;position:fixed;bottom:15px;left:15px;right:15px;z-index:20;background:var(--gold);box-shadow:0 8px 28px #000a;font-size:16px}.modal{display:none;position:fixed;inset:0;background:#000c;z-index:30;align-items:center;justify-content:center;padding:15px}.modal.open{display:flex}.modalbox{width:min(700px,100%);max-height:90vh;overflow:auto;background:#171719;border:1px solid #444;border-radius:18px;padding:20px}.steps{display:flex;gap:6px;margin:10px 0}.step{flex:1;height:7px;background:#333;border-radius:9px}.step.on{background:var(--gold)}.confirm{text-align:center}.token{font-size:34px;color:var(--gold);font-weight:900}.status{font-size:18px}.ready{background:var(--green);color:#04120a;padding:20px;border-radius:14px;font-size:28px;font-weight:1000;text-align:center;animation:pulse 1s infinite alternate}@keyframes pulse{to{transform:scale(1.02);box-shadow:0 0 25px #22c55e99}}@media(max-width:650px){.wrap{padding:12px}.deal{align-items:flex-start;flex-direction:column}.floatcart.show{display:block}body{padding-bottom:75px}.grid{grid-template-columns:1fr 1fr}.foodimg{height:120px;font-size:62px}}@media(max-width:430px){.grid{grid-template-columns:1fr}}
+</style></head><body><div class="wrap"><header class="brand"><div class="logo">🍔</div><h1>SMOKE HOUSE BURGERS</h1><div class="tag">Where Every Bite Hits Different 🔥</div></header>
+<section class="deal"><div><b style="font-size:21px">🔥 Build the AED 18 Meal</b><div>Choose 1 burger + 1 side + 1 drink</div><div><b>You save AED 4</b> on each qualifying meal.</div></div><button onclick="openBuilder()">BUILD MY MEAL</button></section>
+<input id="search" class="search" placeholder="🔍 Search the menu..." oninput="renderMenu()"><nav class="cats" id="cats"><button class="active" onclick="setCat('All',this)">All</button><button onclick="setCat('Burgers',this)">Burgers</button><button onclick="setCat('Sides',this)">Sides</button><button onclick="setCat('Drinks',this)">Drinks</button><button onclick="setCat('Add-Ons',this)">Add-ons</button><button onclick="setCat('Dessert',this)">Dessert</button></nav><main id="menu" class="grid"></main>
+<section id="cartPanel" class="panel"><h2>🛒 Your Cart</h2><div id="cart"></div><button class="continue" type="button" onclick="document.getElementById('search').scrollIntoView({behavior:'smooth'})">← Continue Shopping</button><div class="grand">TOTAL <span style="float:right">AED <span id="total">0</span></span></div><input id="customer" placeholder="Customer name" autocomplete="name"><textarea id="notes" rows="2" placeholder="Order notes (optional)"></textarea><button id="checkout" style="width:100%" onclick="placeOrder()" disabled>PLACE ORDER</button></section>
+<section class="panel"><h2>📦 Order Status</h2><div id="status" class="status">No active order</div></section></div><button id="floatcart" class="floatcart" onclick="document.getElementById('cartPanel').scrollIntoView({behavior:'smooth'})">🛒 View Cart · 0 items · AED 0</button>
+<div id="builder" class="modal"><div class="modalbox"><div class="row"><h2>🔥 AED 18 Meal Builder</h2><button class="continue" onclick="closeBuilder()">✕</button></div><div class="steps"><div id="s1" class="step on"></div><div id="s2" class="step"></div><div id="s3" class="step"></div></div><div id="builderBody"></div></div></div>
+<div id="confirm" class="modal"><div class="modalbox confirm"><div style="font-size:60px">✅</div><h2>Order confirmed!</h2><p>Your Smoke House order is in the kitchen.</p><div id="confirmToken" class="token"></div><div id="confirmSummary"></div><button onclick="closeConfirm()">View Order Status</button></div></div>
+<script>
+const products=[
+{id:'classic',icon:'🍔',name:'Smoke House Classic',price:12,cat:'Burgers',desc:'Juicy beef burger with our signature smoke sauce.',diet:'Contains gluten, dairy; sauce may contain egg',custom:true},
+{id:'mushroom',icon:'🍄',name:'Smoked Mushroom Melt',price:12,cat:'Burgers',desc:'Grilled burger with mushrooms and melted cheese.',diet:'Contains gluten & dairy',custom:true},
+{id:'chicken',icon:'🍗',name:'Firehouse Chicken Burger',price:12,cat:'Burgers',desc:'Spicy crispy chicken burger.',diet:'Contains gluten; spicy',custom:true},
+{id:'veggie',icon:'🥬',name:'Smoky Veggie Crunch',price:12,cat:'Burgers',desc:'Crunchy vegetarian burger.',diet:'Vegetarian · contains gluten',custom:true},
+{id:'fries',icon:'🍟',name:'Smoke House Fries',price:8,cat:'Sides',desc:'Golden seasoned fries.',diet:'Vegetarian'},
+{id:'cheesefries',icon:'🧀',name:'Cheese Loaded Fries',price:8,cat:'Sides',desc:'Fries topped with melted cheese.',diet:'Vegetarian · contains dairy'},
+{id:'rings',icon:'🧅',name:'BBQ Onion Rings',price:8,cat:'Sides',desc:'Crispy onion rings.',diet:'Vegetarian · contains gluten'},
+{id:'sweet',icon:'🍠',name:'Sweet Potato Fries',price:8,cat:'Sides',desc:'Sweet potato fries.',diet:'Vegetarian'},
+{id:'soft',icon:'🥤',name:'Soft Drinks',price:2,cat:'Drinks',desc:'Cold refreshing drink.',diet:'Check drink label for allergens'},
+{id:'lemon',icon:'🍋',name:'Fresh Lemonade',price:2,cat:'Drinks',desc:'Fresh lemonade.',diet:'Vegetarian'},
+{id:'cheese',icon:'🧀',name:'Extra Cheese',price:4,cat:'Add-Ons',desc:'Extra melted cheese.',diet:'Contains dairy'},
+{id:'patty',icon:'🍔',name:'Extra Patty',price:4,cat:'Add-Ons',desc:'Add an extra burger patty.',diet:'Check ingredients before serving'},
+{id:'bacon',icon:'🥓',name:'Smoked Bacon',price:4,cat:'Add-Ons',desc:'Smoky bacon add-on.',diet:'Contains meat'},
+{id:'avocado',icon:'🥑',name:'Avocado',price:4,cat:'Add-Ons',desc:'Fresh avocado add-on.',diet:'Plant-based ingredient'},
+{id:'jalapenos',icon:'🌶️',name:'Jalapeños',price:4,cat:'Add-Ons',desc:'Spicy jalapeño add-on.',diet:'Plant-based ingredient'},
+{id:'icecream',icon:'🍨',name:'Ice-cream',price:0,cat:'Dessert',desc:'Available only with a burger and side.',diet:'Contains dairy'}];
+let basket=[],cat='All',builderStep=1,builderPick={};
+const statusChannel=('BroadcastChannel' in window)?new BroadcastChannel('smokehouse-orders'):null;statusChannel?.addEventListener('message',()=>updateStatus());
+function pBy(id){return products.find(p=>p.id===id)}function qty(id){return basket.filter(x=>x.id===id).reduce((s,x)=>s+x.qty,0)}
+function setCat(c,b){cat=c;document.querySelectorAll('#cats button').forEach(x=>x.classList.remove('active'));b.classList.add('active');renderMenu()}
+function renderMenu(){const q=search.value.toLowerCase();menu.innerHTML=products.filter(p=>(cat==='All'||p.cat===cat)&&p.name.toLowerCase().includes(q)).map(p=>`<article class="card ${qty(p.id)?'selected':''}"><div class="foodimg">${p.icon}</div><div class="body"><div class="row"><h3>${p.name}</h3><span class="qtybadge">${qty(p.id)} in cart</span></div><div class="desc">${p.desc}</div><div class="meta">ⓘ ${p.diet}</div><div class="row"><span class="price">${p.cat==='Dessert'?'Price not set':'AED '+p.price}</span>${p.cat==='Dessert'?'<button disabled title="Set a dessert price before selling">Unavailable</button>':`<button onclick="addProduct('${p.id}')">Add</button>`}</div>${p.custom?`<div class="custom"><b>Customize</b><label><input style="width:auto" type="checkbox" id="nosauce-${p.id}"> No Sauce</label><label><input style="width:auto" type="checkbox" id="xcheese-${p.id}"> Extra Cheese (+ AED 4)</label></div>`:''}</div></article>`).join('')}
+function addProduct(id){const p=pBy(id),opts=[];let add=0;if(p.custom&&document.getElementById('nosauce-'+id)?.checked)opts.push('No Sauce');if(p.custom&&document.getElementById('xcheese-'+id)?.checked){opts.push('Extra Cheese');add=4}const key=id+'|'+opts.join('|');let x=basket.find(i=>i.key===key);x?x.qty++:basket.push({key,id,name:p.name,price:p.price+add,qty:1,options:opts});updateCart()}
+function change(i,d){basket[i].qty+=d;if(basket[i].qty<=0)basket.splice(i,1);updateCart()}
+function totals(){let raw=basket.reduce((s,x)=>s+x.price*x.qty,0);let b=basket.filter(x=>pBy(x.id).cat==='Burgers').reduce((s,x)=>s+x.qty,0),si=basket.filter(x=>pBy(x.id).cat==='Sides').reduce((s,x)=>s+x.qty,0),dr=basket.filter(x=>pBy(x.id).cat==='Drinks').reduce((s,x)=>s+x.qty,0),meals=Math.min(b,si,dr),save=meals*4;return{raw,meals,save,total:raw-save}}
+function updateCart(){const t=totals(),n=basket.reduce((s,x)=>s+x.qty,0);cart.innerHTML=basket.length?basket.map((x,i)=>`<div class="cartline"><div><b>${x.name}</b>${x.options.length?`<div style="color:#aaa;font-size:12px">${x.options.join(' · ')}</div>`:''}</div><div><button class="small" onclick="change(${i},-1)">−</button> ${x.qty} <button class="small" onclick="change(${i},1)">+</button></div></div>`).join('')+`${t.meals?`<p class="saving">🔥 ${t.meals} AED 18 meal${t.meals>1?'s':''}: You save AED ${t.save}</p>`:''}`:`<div class="empty"><div style="font-size:42px">🛒</div><b>Your cart is empty</b><p>Add a burger, side or drink to get started.</p></div>`;total.textContent=t.total;checkout.disabled=!basket.length;floatcart.textContent=`🛒 View Cart · ${n} item${n===1?'':'s'} · AED ${t.total}`;floatcart.classList.toggle('show',n>0);renderMenu()}
+function openBuilder(){builderStep=1;builderPick={};builder.classList.add('open');renderBuilder()}function closeBuilder(){builder.classList.remove('open')}
+function renderBuilder(){[s1,s2,s3].forEach((x,i)=>x.classList.toggle('on',i<builderStep));const wanted=builderStep===1?'Burgers':builderStep===2?'Sides':'Drinks';builderBody.innerHTML=`<h3>Step ${builderStep}: Choose your ${wanted.slice(0,-1).toLowerCase()}</h3><p>Meal price: <b>AED 18</b> · <span class="saving">You save AED 4</span></p>${products.filter(p=>p.cat===wanted).map(p=>`<button style="display:block;width:100%;margin:8px 0;text-align:left" onclick="pickBuilder('${p.id}')">${p.icon} ${p.name}</button>`).join('')}`}
+function pickBuilder(id){builderPick[builderStep]=id;if(builderStep<3){builderStep++;renderBuilder();return}Object.values(builderPick).forEach(x=>{const p=pBy(x);let existing=basket.find(i=>i.key===x+'|');existing?existing.qty++:basket.push({key:x+'|',id:x,name:p.name,price:p.price,qty:1,options:[]})});closeBuilder();updateCart();cartPanel.scrollIntoView({behavior:'smooth'})}
+function placeOrder(){
+ const name=document.getElementById('customer').value.trim();
+ if(!name){document.getElementById('customer').focus();return}
+ if(!basket.length)return;
+ const t=totals();
+ const token='SHB-'+Math.floor(1000+Math.random()*9000);
+ const wait=10+Math.floor(Math.random()*11);
+ const order={token,customer:name,wait,status:'pending',items:basket.map(x=>({...x})),notes:document.getElementById('notes').value.trim(),total:t.total,saving:t.save,placedAt:Date.now()};
+ const orders=JSON.parse(localStorage.getItem('orders')||'[]');
+ orders.push(order);
+ localStorage.setItem('orders',JSON.stringify(orders));
+ localStorage.setItem('activeOrder',JSON.stringify(order));
+ localStorage.setItem('activeOrderToken',token);
+ document.getElementById('status').className='status';
+ document.getElementById('status').innerHTML=`<b>${token}</b><br>🟠 PENDING<br>Estimated wait: ${wait} mins<br><span style="color:#aaa;font-size:14px">Order saved and sent to the kitchen.</span>`;
+ document.getElementById('confirmToken').textContent=token;
+ document.getElementById('confirmSummary').innerHTML=`<p><b>Total: AED ${t.total}</b></p>${t.save?`<p class="saving">You saved AED ${t.save}</p>`:''}<p>Estimated wait: ${wait} mins</p>`;
+ document.getElementById('confirm').classList.add('open');
+ basket=[];
+ document.getElementById('notes').value='';
+ updateCart();
+}
+function closeConfirm(){confirm.classList.remove('open');document.getElementById('status').scrollIntoView({behavior:'smooth'})}
+function updateStatus(){
+ const statusBox=document.getElementById('status');
+ const savedActive=JSON.parse(localStorage.getItem('activeOrder')||'null');
+ const token=localStorage.getItem('activeOrderToken')||(savedActive&&savedActive.token);
+ if(!token){statusBox.className='status';statusBox.textContent='No active order';return}
+ const orders=JSON.parse(localStorage.getItem('orders')||'[]');
+ const completed=JSON.parse(localStorage.getItem('completedOrders')||'[]');
+ const active=orders.find(o=>o.token===token)||completed.find(o=>o.token===token)||savedActive;
+ if(!active){statusBox.className='status';statusBox.textContent='No active order';return}
+ localStorage.setItem('activeOrder',JSON.stringify(active));
+ if(active.status==='ready'){
+   statusBox.className='ready';
+   statusBox.innerHTML=`✅ READY FOR COLLECTION<br><span style="font-size:18px">${active.token} · Please collect your order now</span>`;
+ }else if(active.status==='collected'){
+   statusBox.className='status';
+   statusBox.innerHTML=`✅ ORDER COLLECTED<br><b>${active.token}</b><br>Thank you for ordering!`;
+ }else if(active.status==='cooking'){
+   statusBox.className='status';
+   statusBox.innerHTML=`<b>${active.token}</b><br>👨‍🍳 COOKING<br>Estimated wait: ${active.wait} mins`;
+ }else{
+   statusBox.className='status';
+   statusBox.innerHTML=`<b>${active.token}</b><br>🟠 PENDING<br>Estimated wait: ${active.wait} mins`;
+ }
+}
+window.addEventListener('storage',updateStatus);setInterval(updateStatus,1000);renderMenu();updateCart();updateStatus();
+</script></body></html>
